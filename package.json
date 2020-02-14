@@ -1,0 +1,21 @@
+{
+  "name": "scrumtious",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.8",
+    "mongoose": "^5.9.0",
+    "validator": "^12.2.0"
+  },
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}
