@@ -1,10 +1,26 @@
-
 const mongoose = require("mongoose");
-const validator = require("validator");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const fridgeSchema = new mongoose.Schema({
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "user"
+  },
+  ingredients: [
+    {
+      ingredient: {
+        type: Schema.Types.ObjectId,
+        ref: "ingredient"
+      },
+      amount: {
+        unit: {
+          type: String
+        },
+        value: {
+          type: Number
+        }
+      }
+    }
+  ]
+});
 
-
-
-console.console.log(("Yo chia fridge bata ho hai"));
-
+const Fridge = mongoose.model("fridge", fridgeSchema);
+module.exports = Fridge;

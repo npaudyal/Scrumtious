@@ -33,15 +33,7 @@ const userSchema = new mongoose.Schema(
         }
       }
     },
-    age: {
-      type: Number,
-      default: 0,
-      validate(value) {
-        if (value < 0) {
-          throw new Error("Age must be a postive number");
-        }
-      }
-    },
+
     tokens: [
       {
         token: {
@@ -96,7 +88,6 @@ userSchema.statics.findByCredentials = async (email, password) => {
   return user;
 };
 
-// Hash the plain text password before saving
 userSchema.pre("save", async function(next) {
   const user = this;
 
@@ -107,12 +98,11 @@ userSchema.pre("save", async function(next) {
   next();
 });
 
-// Delete user tasks when user is removed
 userSchema.pre("remove", async function(next) {
   const user = this;
   next();
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("user", userSchema);
 
 module.exports = User;
