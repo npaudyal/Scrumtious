@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 const fridgeSchema = new mongoose.Schema({
   owner: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "user"
   },
   ingredients: [
     {
       ingredient: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "ingredient"
       },
       amount: {

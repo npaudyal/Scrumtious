@@ -1,60 +1,100 @@
 const mongoose = require("mongoose");
 
 const recipeSchema = new mongoose.Schema({
-  creator: {
-    type: Schema.Types.ObjectId,
-    ref: "user"
+  vegetarian: {
+    type: Boolean,
+    default: false
   },
-  name: {
+  vegan: {
+    type: Boolean,
+    default: false
+  },
+  glutenFree: {
+    type: Boolean,
+    default: false
+  },
+  dairyFree: {
+    type: Boolean,
+    default: false
+  },
+  title: {
     type: String,
     required: true,
-    unqiue: true
+    unqiue: true,
+    trim: true
   },
-  description: {
+  instructions: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
-  cookingTime: {
-    type: String,
+  readyInMinutes: {
+    type: Number,
     required: true
   },
   image: {
     type: String
   },
-  nutrients: [
-    {
-      calories: {
-        type: Number
-      },
-      carbs: {
-        type: String
-      },
+  nutrients: {
+    calories: {
+      type: String
+    },
+    carbs: {
+      type: String
+    },
 
-      protein: {
-        type: Number
-      },
-      fat: {
-        type: Number
-      }
+    protein: {
+      type: String
+    },
+    fat: {
+      type: String
     }
-  ],
+  },
+
   ingredients: [
     {
       ingredient: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "ingredient"
       },
       amount: {
         unit: {
-          type: String
+          type: String,
+          default: ""
         },
         value: {
-          type: Number
+          type: Number,
+          default: 0
         }
       }
     }
   ]
 });
 
+recipeSchema.pre("save", async function(next) {
+  const recipe = this;
+
+  if (recipe.isModified("instructions")) {
+    let mama = recipe.instructions;
+
+    if (mama.includes("<ol>")) {
+      mama = mama.replace(/<ol>/g, "");
+    }
+    if (mama.includes("<li>")) {
+      mama = mama.replace(/<li>/g, "");
+    }
+    if (mama.includes("</li>")) {
+      mama = mama.replace(/<\/li>/g, "");
+    }
+    if (mama.includes("</ol>")) {
+      mama = mama.replace(/<\/ol>/g, "");
+    }
+    recipe.instructions = mama;
+  }
+
+  next();
+});
+
 const Recipe = mongoose.model("recipe", recipeSchema);
+
 module.exports = Recipe;
