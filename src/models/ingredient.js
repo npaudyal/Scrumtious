@@ -12,3 +12,4 @@ const ingredientSchema = new mongoose.Schema({
 
 const Ingredient = mongoose.model("ingredient", ingredientSchema);
 module.exports = Ingridient;
+
