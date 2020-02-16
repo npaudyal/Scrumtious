@@ -1,6 +1,15 @@
 const mongoose = require("mongoose");
 
 const recipeSchema = new mongoose.Schema({
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    default: null
+  },
+  count: {
+    type: Number,
+    default: 0
+  },
+
   vegetarian: {
     type: Boolean,
     default: false
