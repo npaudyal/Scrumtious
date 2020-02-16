@@ -8,8 +8,8 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
-app.use("users", userRouter);
-app.use("recipes", recipeRouter);
+app.use("/users", userRouter);
+app.use("/recipes", recipeRouter);
 
 app.listen(port, () => {
   console.log("Server is up on port " + port);
