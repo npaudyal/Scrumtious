@@ -4,6 +4,7 @@ const sharp = require("sharp");
 const User = require("../models/user");
 const auth = require("../middleware/auth");
 const { sendWelcomeEmail, sendCancelationEmail } = require("../emails/account");
+const sg = require('@sendgrid/mail')
 
 const router = new express.Router();
 
